@@ -315,5 +315,25 @@
     }
   },
   "map": "doi-khun-tan-reference-9000.png from user-referenced chat 6aca46a0-4ab4-83ec-9dcf-75b1612fef3d",
-  "historicPricesAndDistances": "User-referenced conversation 6a9647ef-beb0-83ec-8d6e-199715d65a82; not verified as current rates"
+  "historicPricesAndDistances": "Original conversation reference applies only to camping rates and walking distances. House rates are superseded by accommodationWorkbook.",
+  "accommodationWorkbook": {
+    "filename": "ที่ี่พักที่จองได้ ดอยขุนตาล.xlsx",
+    "sheet": "ชีต1",
+    "range": "A1:L20",
+    "importedAt": "2026-10-14",
+    "records": 19,
+    "fields": [
+      "name",
+      "zone",
+      "bedrooms",
+      "bathrooms",
+      "capacity",
+      "amenities",
+      "price",
+      "discount",
+      "netPrice"
+    ],
+    "sourceNights": 1,
+    "limitations": "No stay dates, discount eligibility, live availability, bed types, new photos or GPS coordinates are supplied. New marker positions follow numbered labels in the existing reference map."
+  }
 }

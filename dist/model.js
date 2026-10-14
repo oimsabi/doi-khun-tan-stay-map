@@ -4,10 +4,10 @@ const TripMath = {
     const n = Number(value);
     return Number.isFinite(n) ? Math.min(max, Math.max(1, Math.round(n))) : fallback;
   },
-  houses(stays, ids, people, nights) {
+  houses(stays, ids, people, nights, useNetPrice = false) {
     const selected = stays.filter(h => h.type === 'house' && new Set(ids).has(h.id));
     const sum = key => selected.reduce((total, h) => total + h[key], 0);
-    const total = sum('price') * nights;
+    const total = selected.reduce((total, h) => total + (useNetPrice ? h.netPrice : h.price), 0) * nights;
     return { count: selected.length, total, perPerson: total / people, capacity: sum('capacity'), bathrooms: sum('bathrooms'), bedrooms: sum('bedrooms'), enough: sum('capacity') >= people };
   },
   camping(people, nights, options = {}) {
