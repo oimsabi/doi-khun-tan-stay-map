@@ -1,0 +1,25 @@
+const assert = require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const houses=require('./dist/data.js');
+const calc=require('./dist/model.js');
+assert.equal(houses.filter(h=>h.type==='house').length,10);
+assert.equal(new Set(houses.map(h=>h.id)).size,houses.length);
+for(const h of houses){assert(h.x>0&&h.x<1&&h.y>0&&h.y<1);for(const p of h.photos)assert(fs.existsSync(path.join(__dirname,'dist',p.src)));}
+assert.deepEqual(calc.houses(houses,['401','402','403','404'],8,1),{count:4,total:2000,perPerson:250,capacity:8,bathrooms:4,bedrooms:4,enough:true});
+assert.equal(calc.houses(houses,['502'],8,2).total,4400);
+assert.equal(calc.houses(houses,['502'],10,1).enough,false);
+assert.equal(calc.houses(houses,['502','502'],8,1).total,2200);
+assert.equal(calc.houses(houses,[],8,1).total,0);
+assert.deepEqual(calc.camping(8,1),{tents:4,area:240,gear:400,min:1280,max:1540});
+assert.deepEqual(calc.camping(8,2),{tents:4,area:480,gear:800,min:2560,max:3080});
+assert.equal(calc.camping(3,1).tents,2);
+assert.equal(calc.camping(8,1,{rent:false}).min,240);
+assert.equal(calc.camping(8,1,{bag:false,mat:false,pillow:false,ground:false}).min,640);
+assert.equal(calc.camping(8,1,{pillow:true}).min,1360);
+assert.equal(calc.camping(8,1,{ground:false}).min,1040);
+assert.equal(calc.integer(-5,8,99),1);
+assert.equal(calc.integer(999,8,99),99);
+assert.equal(calc.integer('bad',8,99),8);
+assert.equal(calc.integer(1.8,8,99),2);
+console.log('Passed: 10 house records, unique map points, photo assets, capacity, duplicate selection, nightly rates, odd tent counts, equipment and nonduplicated ground fees.');
